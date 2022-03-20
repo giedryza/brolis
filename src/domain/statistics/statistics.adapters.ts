@@ -3,7 +3,7 @@ import { parse } from 'papaparse';
 import { endpoints } from 'config';
 import { apiRequest } from 'tools/services';
 
-import { Cow } from './statistics.types';
+import { Day } from './statistics.types';
 
 export const adapters = {
   getCows: async () => {
@@ -11,7 +11,7 @@ export const adapters = {
       responseType: 'text',
     });
 
-    const { data } = parse<Cow>(response, {
+    const { data } = parse<Day>(response, {
       header: true,
     });
 
@@ -26,7 +26,7 @@ export const adapters = {
       }
     );
 
-    const { data } = parse<Cow>(response, {
+    const { data } = parse<Day>(response, {
       header: true,
     });
 

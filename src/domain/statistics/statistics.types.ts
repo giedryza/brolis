@@ -1,4 +1,4 @@
-export interface Cow {
+export interface Day {
   Cow: string;
   days: string;
   fat_fit_conc: string;
