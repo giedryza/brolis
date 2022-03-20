@@ -2,10 +2,14 @@
   "name": "brolis",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.13.2"
+  },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
     "start": "next start",
+    "start:dev": "next dev",
+    "build": "next build",
+    "browserslist": "npx browserslist",
     "lint": "next lint"
   },
   "dependencies": {
@@ -16,8 +20,14 @@
   "devDependencies": {
     "@types/node": "17.0.21",
     "@types/react": "17.0.41",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
     "eslint": "8.11.0",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "12.1.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.0",
+    "sass": "^1.49.9",
     "typescript": "4.6.2"
   }
 }
