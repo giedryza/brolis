@@ -1,0 +1,13 @@
+.footer {
+  color: var(--color-grey-95);
+  text-align: center;
+  background-color: var(--color-grey-15);
+  padding: 1rem;
+  font-size: 1.2rem;
+
+  .container {
+    width: 114rem;
+    max-width: 98%;
+    margin: 0 auto;
+  }
+}
