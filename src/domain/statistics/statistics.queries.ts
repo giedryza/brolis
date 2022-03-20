@@ -9,3 +9,9 @@ export const useCows = (filters: CowsFilters = {}) => {
 
   return query;
 };
+
+export const useCow = (id: string) => {
+  const query = useQuery(statisticsKeys.detail(id), () => adapters.getCow(id));
+
+  return query;
+};

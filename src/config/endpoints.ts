@@ -1,3 +1,6 @@
 export const endpoints = {
-  cows: '/data/price.csv',
+  cows: {
+    all: '/data/price.csv',
+    one: '/data/:id_price.csv',
+  },
 };

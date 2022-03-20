@@ -7,13 +7,27 @@ import { Cow } from './statistics.types';
 
 export const adapters = {
   getCows: async () => {
-    const response = await apiRequest<string>(endpoints.cows, {
+    const response = await apiRequest<string>(endpoints.cows.all, {
       responseType: 'text',
     });
 
     const { data } = parse<Cow>(response, {
       header: true,
-      dynamicTyping: true,
+    });
+
+    return data;
+  },
+
+  getCow: async (id: string) => {
+    const response = await apiRequest<string>(
+      endpoints.cows.one.replace(':id', id),
+      {
+        responseType: 'text',
+      }
+    );
+
+    const { data } = parse<Cow>(response, {
+      header: true,
     });
 
     return data;
