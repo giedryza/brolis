@@ -1,14 +1,14 @@
 export interface Price {
-  Cow: string;
-  days: string;
-  fat_fit_conc: string;
-  fat_real_conc: string;
-  fit_price: string;
-  milk_fit_conc: string;
-  milk_real_conc: string;
-  protein_fit_conc: string;
-  protein_real_conc: string;
-  real_price: string;
+  Cow: number;
+  days: number;
+  fat_fit_conc: number;
+  fat_real_conc: number;
+  fit_price: number;
+  milk_fit_conc: number;
+  milk_real_conc: number;
+  protein_fit_conc: number;
+  protein_real_conc: number;
+  real_price: number;
 }
 
 export interface PricesFilters {}

@@ -5,6 +5,7 @@ export const queryClientConfig: QueryClientConfig = {
     queries: {
       staleTime: 0,
       retry: false,
+      refetchOnWindowFocus: false,
     },
     mutations: {
       onError: (error) => {

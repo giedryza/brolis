@@ -11,7 +11,10 @@ export const adapters = {
       responseType: 'text',
     });
 
-    const { data } = parse<Price>(response, { header: true });
+    const { data } = parse<Price>(response, {
+      header: true,
+      dynamicTyping: true,
+    });
 
     return data;
   },
