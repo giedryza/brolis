@@ -3,15 +3,15 @@ import { parse } from 'papaparse';
 import { endpoints } from 'config';
 import { apiRequest } from 'tools/services';
 
-import { Price } from './statistics.types';
+import { Cow } from './statistics.types';
 
 export const adapters = {
-  getPrices: async () => {
-    const response = await apiRequest<string>(endpoints.prices, {
+  getCows: async () => {
+    const response = await apiRequest<string>(endpoints.cows, {
       responseType: 'text',
     });
 
-    const { data } = parse<Price>(response, {
+    const { data } = parse<Cow>(response, {
       header: true,
       dynamicTyping: true,
     });

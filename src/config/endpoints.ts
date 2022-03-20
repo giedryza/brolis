@@ -1,3 +1,3 @@
 export const endpoints = {
-  prices: '/data/price.csv',
+  cows: '/data/price.csv',
 };

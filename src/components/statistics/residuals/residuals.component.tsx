@@ -1,9 +1,9 @@
 import { VFC } from 'react';
 
-import { usePrices } from 'domain/statistics/statistics.queries';
+import { useCows } from 'domain/statistics/statistics.queries';
 
 export const Residuals: VFC = () => {
-  const { data: prices = [] } = usePrices();
+  const { data: prices = [] } = useCows();
 
   console.log(prices);
 

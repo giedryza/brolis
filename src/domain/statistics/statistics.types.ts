@@ -1,4 +1,4 @@
-export interface Price {
+export interface Cow {
   Cow: number;
   days: number;
   fat_fit_conc: number;
@@ -11,4 +11,4 @@ export interface Price {
   real_price: number;
 }
 
-export interface PricesFilters {}
+export interface CowsFilters {}

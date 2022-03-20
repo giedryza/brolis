@@ -1,4 +1,6 @@
 :root {
+  --color-primary: hsl(257, 98%, 59%);
+
   --color-white: #fff;
   --color-text: var(--color-grey-05);
 
@@ -24,4 +26,8 @@
   --color-grey-85: hsl(var(--color-grey-h), var(--color-grey-s), 85%);
   --color-grey-90: hsl(var(--color-grey-h), var(--color-grey-s), 90%);
   --color-grey-95: hsl(var(--color-grey-h), var(--color-grey-s), 95%);
+
+  --color-success: hsl(137, 20%, 75%);
+  --color-error: hsl(354, 30%, 75%);
+  --color-warning: hsl(39, 30%, 85%);
 }
