@@ -18,9 +18,9 @@ export const adapters = {
     return data;
   },
 
-  getCow: async (id: string) => {
+  getCow: async (id: number) => {
     const response = await apiRequest<string>(
-      endpoints.cows.one.replace(':id', id),
+      endpoints.cows.one.replace(':id', `${id}`),
       {
         responseType: 'text',
       }
@@ -28,6 +28,9 @@ export const adapters = {
 
     const { data } = parse<Day>(response, {
       header: true,
+      dynamicTyping: true,
+      transform: (value) =>
+        value.includes(',') ? value.replace(',', '.') : value,
     });
 
     return data;
