@@ -1,0 +1,13 @@
+.nav {
+  width: 114rem;
+  max-width: 98%;
+  margin: 0 auto;
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2rem;
+    gap: 2rem;
+  }
+}
