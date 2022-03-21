@@ -10,6 +10,7 @@ import {
   Label,
   ComposedChart,
   ReferenceArea,
+  ReferenceLine,
 } from 'recharts';
 
 import { useSsc } from 'domain/statistics/statistics.queries';
@@ -38,9 +39,7 @@ export const Graph: VFC = () => {
           >
             <Label value="Milking days" position="bottom" offset={0} />
           </XAxis>
-          <YAxis tickLine={false} axisLine={false} dataKey="SSC_lab">
-            <Label angle={-90} position="left" offset={0} textAnchor="center" />
-          </YAxis>
+          <YAxis tickLine={false} axisLine={false} dataKey="SSC_lab" />
 
           <Tooltip />
 
@@ -54,6 +53,17 @@ export const Graph: VFC = () => {
           <ReferenceArea y1={0} y2={150} fill="var(--color-success)" />
           <ReferenceArea y1={150} y2={300} fill="var(--color-warning)" />
           <ReferenceArea y1={300} fill="var(--color-error)" />
+
+          <ReferenceLine x={3} stroke="var(--color-text)" strokeDasharray="8 8">
+            <Label value="Last insemination" position="insideBottom" />
+          </ReferenceLine>
+          <ReferenceLine
+            x={22}
+            stroke="var(--color-text)"
+            strokeDasharray="8 8"
+          >
+            <Label value="Expected calving time" position="insideBottom" />
+          </ReferenceLine>
 
           <Line
             name="SSC lab"
