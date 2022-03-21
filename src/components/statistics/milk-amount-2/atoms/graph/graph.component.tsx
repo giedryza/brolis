@@ -8,21 +8,21 @@ import {
   Legend,
   ResponsiveContainer,
   Label,
-  Scatter,
   ComposedChart,
+  ReferenceLine,
 } from 'recharts';
 
-import { useCow, useMilking } from 'domain/statistics/statistics.queries';
-import { Day, Milking } from 'domain/statistics/statistics.types';
+import { useCow, useFarmMilking } from 'domain/statistics/statistics.queries';
+import { Day, FarmMilking } from 'domain/statistics/statistics.types';
 
 import { COW, X_TICKS_INTERVAL } from './graph.constants';
 import styles from './graph.module.scss';
 
 export const Graph: VFC = () => {
   const { data: days = [], isLoading } = useCow(COW);
-  const { data: milkings = [] } = useMilking();
+  const { data: milkings = [] } = useFarmMilking();
 
-  const getMilkingDataKeyValue = (key: keyof Milking) => (data: Day) => {
+  const getMilkingDataKeyValue = (key: keyof FarmMilking) => (data: Day) => {
     const milking = milkings.find(
       ({ Milking_days }) => Milking_days === data.days
     );
@@ -65,6 +65,21 @@ export const Graph: VFC = () => {
             wrapperStyle={{ paddingLeft: 25, fontWeight: 600 }}
           />
 
+          <ReferenceLine
+            x={52}
+            stroke="var(--color-text)"
+            strokeDasharray="8 8"
+          >
+            <Label value="Last insemination" position="insideBottom" />
+          </ReferenceLine>
+          <ReferenceLine
+            x={300}
+            stroke="var(--color-text)"
+            strokeDasharray="8 8"
+          >
+            <Label value="Expected calving time" position="insideBottom" />
+          </ReferenceLine>
+
           <Line
             name={`Cow ${COW}`}
             type="monotone"
@@ -83,10 +98,12 @@ export const Graph: VFC = () => {
             dot={false}
           />
 
-          <Scatter
-            dataKey={getMilkingDataKeyValue('Milk_amount_y')}
+          <Line
+            dataKey={getMilkingDataKeyValue('Milk_amount')}
             name="Milk"
-            fill="var(--color-success)"
+            fill="var(--color-primary)"
+            strokeDasharray="3 3"
+            connectNulls
           />
         </ComposedChart>
       </ResponsiveContainer>

@@ -17,4 +17,8 @@ export const LINKS = [
     label: 'SSC',
     url: routes.statistics.ssc,
   },
+  {
+    label: 'Milk Amount 2',
+    url: routes.statistics.milkAmount2,
+  },
 ];

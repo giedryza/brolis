@@ -26,6 +26,15 @@ export const useMilking = () => {
   return query;
 };
 
+export const useFarmMilking = () => {
+  const query = useQuery(
+    statisticsKeys.list('farm-milking'),
+    adapters.getFarmMilking
+  );
+
+  return query;
+};
+
 export const useResiduals = () => {
   const query = useQuery(
     statisticsKeys.list('residuals'),

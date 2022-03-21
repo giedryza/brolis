@@ -4,7 +4,13 @@ import { endpoints } from 'config';
 import { apiRequest } from 'tools/services';
 import { parseCommaFloat } from 'tools/utils';
 
-import { Day, Milking, BaseResidual, Ssc } from './statistics.types';
+import {
+  Day,
+  Milking,
+  FarmMilking,
+  BaseResidual,
+  Ssc,
+} from './statistics.types';
 
 export const adapters = {
   getCows: async () => {
@@ -43,6 +49,20 @@ export const adapters = {
     });
 
     const { data } = parse<Milking>(response, {
+      header: true,
+      dynamicTyping: true,
+      transform: parseCommaFloat,
+    });
+
+    return data;
+  },
+
+  getFarmMilking: async () => {
+    const response = await apiRequest<string>(endpoints.farmMilking, {
+      responseType: 'text',
+    });
+
+    const { data } = parse<FarmMilking>(response, {
       header: true,
       dynamicTyping: true,
       transform: parseCommaFloat,
