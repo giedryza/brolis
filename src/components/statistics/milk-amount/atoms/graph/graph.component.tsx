@@ -50,16 +50,10 @@ export const Graph: VFC = () => {
             }).map((_, i) => (i + 1) * X_TICKS_INTERVAL)}
             tickLine={false}
           >
-            <Label value="Milking days" position="bottom" offset={0} />
+            <Label value="Milking days" position="bottom" />
           </XAxis>
-          <YAxis tickLine={false} axisLine={false} unit="%">
-            <Label
-              value="Analyte concentrations"
-              angle={-90}
-              position="left"
-              offset={0}
-              textAnchor="center"
-            />
+          <YAxis tickLine={false} axisLine={false}>
+            <Label value="Milk amount" angle={-90} position="left" offset={0} />
           </YAxis>
 
           <Tooltip />
@@ -72,49 +66,27 @@ export const Graph: VFC = () => {
           />
 
           <Line
-            name={`Cow ${COW} Fat`}
+            name={`Cow ${COW}`}
             type="monotone"
-            dataKey="fat_real_conc"
-            stroke="var(--color-warning)"
-            legendType="plainline"
-            dot={false}
-          />
-          <Line
-            name="Avg. Fat Conc."
-            type="monotone"
-            dataKey="fat_fit_conc"
-            stroke="var(--color-warning)"
-            strokeDasharray="12 8"
-            legendType="plainline"
-            dot={false}
-          />
-          <Line
-            name={`Cow ${COW} Protein`}
-            type="monotone"
-            dataKey="protein_real_conc"
+            dataKey="milk_real_conc"
             stroke="var(--color-primary)"
             legendType="plainline"
             dot={false}
           />
           <Line
-            name="Avg. Protein Conc."
+            name="Average Milk"
             type="monotone"
-            dataKey="protein_fit_conc"
-            stroke="var(--color-primary)"
+            dataKey="milk_fit_conc"
+            stroke="var(--color-error)"
             strokeDasharray="12 8"
             legendType="plainline"
             dot={false}
           />
 
           <Scatter
-            dataKey={getMilkingDataKeyValue('Fat_lab')}
+            dataKey={getMilkingDataKeyValue('Milk_amount_y')}
             name="Fat"
-            fill="var(--color-warning)"
-          />
-          <Scatter
-            dataKey={getMilkingDataKeyValue('Protein_lab')}
-            name="Protein"
-            fill="var(--color-primary)"
+            fill="var(--color-success)"
           />
         </ComposedChart>
       </ResponsiveContainer>

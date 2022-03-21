@@ -14,6 +14,7 @@ export interface Day {
 export interface Milking {
   Fat_lab: number | null;
   Protein_lab: number | null;
+  Milk_amount_y: number | null;
   Milking_days: number;
 }
 
