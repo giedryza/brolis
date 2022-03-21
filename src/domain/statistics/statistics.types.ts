@@ -11,4 +11,10 @@ export interface Day {
   real_price: number;
 }
 
+export interface Milking {
+  Fat_lab: number | null;
+  Protein_lab: number | null;
+  Milking_days: number;
+}
+
 export interface CowsFilters {}

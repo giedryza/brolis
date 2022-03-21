@@ -6,13 +6,22 @@ import { CowsFilters } from './statistics.types';
 import { adapters } from './statistics.adapters';
 
 export const useCows = (filters: CowsFilters = {}) => {
-  const query = useQuery(statisticsKeys.list(filters), adapters.getCows);
+  const query = useQuery(
+    statisticsKeys.list('cows', filters),
+    adapters.getCows
+  );
 
   return query;
 };
 
 export const useCow = (id: number) => {
   const query = useQuery(statisticsKeys.detail(id), () => adapters.getCow(id));
+
+  return query;
+};
+
+export const useMilking = () => {
+  const query = useQuery(statisticsKeys.list('milking'), adapters.getMilking);
 
   return query;
 };

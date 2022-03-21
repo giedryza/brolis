@@ -1,6 +1,5 @@
 import { useMemo, VFC } from 'react';
 import {
-  LineChart,
   Line,
   XAxis,
   YAxis,
@@ -9,9 +8,11 @@ import {
   Legend,
   ResponsiveContainer,
   Label,
+  Scatter,
+  ComposedChart,
 } from 'recharts';
 
-import { useCow } from 'domain/statistics/statistics.queries';
+import { useCow, useMilking } from 'domain/statistics/statistics.queries';
 
 import styles from './graph.module.scss';
 
@@ -20,8 +21,9 @@ const COW = 67388;
 
 export const Graph: VFC = () => {
   const { data: days = [] } = useCow(COW);
+  const { data: milkings = [] } = useMilking();
 
-  const data = useMemo(() => {
+  const daysData = useMemo(() => {
     return days.map((day) => ({
       day: day.days,
       fat: day.fat_real_conc,
@@ -31,42 +33,67 @@ export const Graph: VFC = () => {
     }));
   }, [days]);
 
-  if (!data.length) return null;
+  const milkingsData = useMemo(() => {
+    return milkings
+      .filter((milking) => !!milking.Fat_lab && !!milking.Protein_lab)
+      .map((milking) => ({
+        fat: milking.Fat_lab,
+        protein: milking.Protein_lab,
+        day: milking.Milking_days,
+      }));
+  }, [milkings]);
+
+  const getMilkingDataKeyValue =
+    (key: keyof typeof milkingsData[number]) =>
+    (data: typeof daysData[number]) => {
+      const index = milkingsData.findIndex(({ day }) => day === data.day);
+
+      if (index && milkingsData[index]) {
+        return milkingsData[index][key];
+      }
+    };
+
+  if (!days.length || !milkings.length) return null;
 
   return (
     <div className={styles.container}>
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          data={data}
+        <ComposedChart
+          data={daysData}
           margin={{ top: 25, right: 25, bottom: 25, left: 25 }}
         >
-          <CartesianGrid />
+          <CartesianGrid stroke="var(--color-white)" />
+
           <XAxis
+            axisLine={false}
             dataKey="day"
             interval="preserveStart"
             ticks={Array.from({
-              length: Math.floor(data.length / X_TICKS_INTERVAL),
+              length: Math.floor(daysData.length / X_TICKS_INTERVAL),
             }).map((_, i) => (i + 1) * X_TICKS_INTERVAL)}
             tickLine={false}
           >
             <Label value="Milking days" position="bottom" offset={0} />
           </XAxis>
-          <YAxis tickLine={false}>
+          <YAxis tickLine={false} axisLine={false}>
             <Label value="Analyte concentrations, %" angle={-90} />
           </YAxis>
+
           <Tooltip />
+
           <Legend
             layout="vertical"
             align="right"
             verticalAlign="top"
-            iconType="plainline"
             wrapperStyle={{ paddingLeft: 25 }}
           />
+
           <Line
             name={`Cow ${COW} Fat`}
             type="monotone"
             dataKey="fat"
             stroke="var(--color-warning)"
+            legendType="plainline"
             dot={false}
           />
           <Line
@@ -75,6 +102,7 @@ export const Graph: VFC = () => {
             dataKey="avgFat"
             stroke="var(--color-warning)"
             strokeDasharray="12 8"
+            legendType="plainline"
             dot={false}
           />
           <Line
@@ -82,6 +110,7 @@ export const Graph: VFC = () => {
             type="monotone"
             dataKey="protein"
             stroke="var(--color-primary)"
+            legendType="plainline"
             dot={false}
           />
           <Line
@@ -90,9 +119,21 @@ export const Graph: VFC = () => {
             dataKey="avgProtein"
             stroke="var(--color-primary)"
             strokeDasharray="12 8"
+            legendType="plainline"
             dot={false}
           />
-        </LineChart>
+
+          <Scatter
+            dataKey={getMilkingDataKeyValue('fat')}
+            name="Fat"
+            fill="var(--color-warning)"
+          />
+          <Scatter
+            dataKey={getMilkingDataKeyValue('protein')}
+            name="Protein"
+            fill="var(--color-primary)"
+          />
+        </ComposedChart>
       </ResponsiveContainer>
     </div>
   );
