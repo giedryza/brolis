@@ -19,7 +19,7 @@ import { COW, X_TICKS_INTERVAL } from './graph.constants';
 import styles from './graph.module.scss';
 
 export const Graph: VFC = () => {
-  const { data: days = [] } = useCow(COW);
+  const { data: days = [], isLoading } = useCow(COW);
   const { data: milkings = [] } = useMilking();
 
   const getMilkingDataKeyValue = (key: keyof Milking) => (data: Day) => {
@@ -30,7 +30,7 @@ export const Graph: VFC = () => {
     return milking?.[key];
   };
 
-  if (!days.length || !milkings.length) return null;
+  if (isLoading) return null;
 
   return (
     <div className={styles.container}>
@@ -62,7 +62,7 @@ export const Graph: VFC = () => {
             layout="vertical"
             align="right"
             verticalAlign="top"
-            wrapperStyle={{ paddingLeft: 25 }}
+            wrapperStyle={{ paddingLeft: 25, fontWeight: 600 }}
           />
 
           <Line

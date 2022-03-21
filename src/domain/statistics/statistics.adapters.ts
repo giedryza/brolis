@@ -4,7 +4,7 @@ import { endpoints } from 'config';
 import { apiRequest } from 'tools/services';
 import { parseCommaFloat } from 'tools/utils';
 
-import { Day, Milking, BaseResidual } from './statistics.types';
+import { Day, Milking, BaseResidual, Ssc } from './statistics.types';
 
 export const adapters = {
   getCows: async () => {
@@ -60,6 +60,19 @@ export const adapters = {
       header: true,
       dynamicTyping: true,
       transform: parseCommaFloat,
+    });
+
+    return data;
+  },
+
+  getSsc: async () => {
+    const response = await apiRequest<string>(endpoints.ssc, {
+      responseType: 'text',
+    });
+
+    const { data } = parse<Ssc>(response, {
+      header: true,
+      dynamicTyping: true,
     });
 
     return data;

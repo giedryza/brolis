@@ -16,7 +16,7 @@ import { useResiduals } from 'domain/statistics/statistics.queries';
 import styles from './graph.module.scss';
 
 export const Graph: VFC = () => {
-  const { data: residuals = [] } = useResiduals();
+  const { data: residuals = [], isLoading } = useResiduals();
 
   const milk = useMemo(
     () => ({
@@ -26,7 +26,7 @@ export const Graph: VFC = () => {
     [residuals]
   );
 
-  if (!residuals.length) return null;
+  if (isLoading) return null;
 
   return (
     <div className={styles.container}>
@@ -55,7 +55,7 @@ export const Graph: VFC = () => {
             layout="vertical"
             align="right"
             verticalAlign="top"
-            wrapperStyle={{ paddingLeft: 25 }}
+            wrapperStyle={{ paddingLeft: 25, fontWeight: 600 }}
           />
 
           <Bar

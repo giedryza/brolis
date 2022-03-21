@@ -30,4 +30,9 @@ export interface Residual extends BaseResidual {
   milk_residuals_neg?: number;
 }
 
+export interface Ssc {
+  Milking_days: number;
+  SSC_lab: number;
+}
+
 export interface CowsFilters {}

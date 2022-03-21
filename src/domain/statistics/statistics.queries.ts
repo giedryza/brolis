@@ -37,3 +37,9 @@ export const useResiduals = () => {
 
   return query;
 };
+
+export const useSsc = () => {
+  const query = useQuery(statisticsKeys.list('ssc'), adapters.getSsc);
+
+  return query;
+};
