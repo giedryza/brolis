@@ -1,4 +1,4 @@
-import { useMemo, VFC } from 'react';
+import { VFC } from 'react';
 import {
   Line,
   XAxis,
@@ -13,6 +13,7 @@ import {
 } from 'recharts';
 
 import { useCow, useMilking } from 'domain/statistics/statistics.queries';
+import { Day, Milking } from 'domain/statistics/statistics.types';
 
 import styles from './graph.module.scss';
 
@@ -23,35 +24,15 @@ export const Graph: VFC = () => {
   const { data: days = [] } = useCow(COW);
   const { data: milkings = [] } = useMilking();
 
-  const daysData = useMemo(() => {
-    return days.map((day) => ({
-      day: day.days,
-      fat: day.fat_real_conc,
-      avgFat: day.fat_fit_conc,
-      protein: day.protein_real_conc,
-      avgProtein: day.protein_fit_conc,
-    }));
-  }, [days]);
+  const getMilkingDataKeyValue = (key: keyof Milking) => (data: Day) => {
+    const index = milkings.findIndex(
+      ({ Milking_days }) => Milking_days === data.days
+    );
 
-  const milkingsData = useMemo(() => {
-    return milkings
-      .filter((milking) => !!milking.Fat_lab && !!milking.Protein_lab)
-      .map((milking) => ({
-        fat: milking.Fat_lab,
-        protein: milking.Protein_lab,
-        day: milking.Milking_days,
-      }));
-  }, [milkings]);
-
-  const getMilkingDataKeyValue =
-    (key: keyof typeof milkingsData[number]) =>
-    (data: typeof daysData[number]) => {
-      const index = milkingsData.findIndex(({ day }) => day === data.day);
-
-      if (index && milkingsData[index]) {
-        return milkingsData[index][key];
-      }
-    };
+    if (index && milkings[index]) {
+      return milkings[index][key];
+    }
+  };
 
   if (!days.length || !milkings.length) return null;
 
@@ -59,17 +40,17 @@ export const Graph: VFC = () => {
     <div className={styles.container}>
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart
-          data={daysData}
+          data={days}
           margin={{ top: 25, right: 25, bottom: 25, left: 25 }}
         >
           <CartesianGrid stroke="var(--color-white)" />
 
           <XAxis
             axisLine={false}
-            dataKey="day"
+            dataKey="days"
             interval="preserveStart"
             ticks={Array.from({
-              length: Math.floor(daysData.length / X_TICKS_INTERVAL),
+              length: Math.floor(days.length / X_TICKS_INTERVAL),
             }).map((_, i) => (i + 1) * X_TICKS_INTERVAL)}
             tickLine={false}
           >
@@ -91,7 +72,7 @@ export const Graph: VFC = () => {
           <Line
             name={`Cow ${COW} Fat`}
             type="monotone"
-            dataKey="fat"
+            dataKey="fat_real_conc"
             stroke="var(--color-warning)"
             legendType="plainline"
             dot={false}
@@ -99,7 +80,7 @@ export const Graph: VFC = () => {
           <Line
             name="Avg. Fat Conc."
             type="monotone"
-            dataKey="avgFat"
+            dataKey="fat_fit_conc"
             stroke="var(--color-warning)"
             strokeDasharray="12 8"
             legendType="plainline"
@@ -108,7 +89,7 @@ export const Graph: VFC = () => {
           <Line
             name={`Cow ${COW} Protein`}
             type="monotone"
-            dataKey="protein"
+            dataKey="protein_real_conc"
             stroke="var(--color-primary)"
             legendType="plainline"
             dot={false}
@@ -116,7 +97,7 @@ export const Graph: VFC = () => {
           <Line
             name="Avg. Protein Conc."
             type="monotone"
-            dataKey="avgProtein"
+            dataKey="protein_fit_conc"
             stroke="var(--color-primary)"
             strokeDasharray="12 8"
             legendType="plainline"
@@ -124,12 +105,12 @@ export const Graph: VFC = () => {
           />
 
           <Scatter
-            dataKey={getMilkingDataKeyValue('fat')}
+            dataKey={getMilkingDataKeyValue('Fat_lab')}
             name="Fat"
             fill="var(--color-warning)"
           />
           <Scatter
-            dataKey={getMilkingDataKeyValue('protein')}
+            dataKey={getMilkingDataKeyValue('Protein_lab')}
             name="Protein"
             fill="var(--color-primary)"
           />
