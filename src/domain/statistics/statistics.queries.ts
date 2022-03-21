@@ -25,3 +25,12 @@ export const useMilking = () => {
 
   return query;
 };
+
+export const useResiduals = () => {
+  const query = useQuery(
+    statisticsKeys.list('residuals'),
+    adapters.getResiduals
+  );
+
+  return query;
+};

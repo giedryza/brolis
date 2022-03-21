@@ -17,4 +17,9 @@ export interface Milking {
   Milking_days: number;
 }
 
+export interface Residual extends Day {
+  price_residuals: number;
+  milk_residuals: number;
+}
+
 export interface CowsFilters {}

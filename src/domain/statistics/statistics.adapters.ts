@@ -2,8 +2,9 @@ import { parse } from 'papaparse';
 
 import { endpoints } from 'config';
 import { apiRequest } from 'tools/services';
+import { parseCommaFloat } from 'tools/utils';
 
-import { Day, Milking } from './statistics.types';
+import { Day, Milking, Residual } from './statistics.types';
 
 export const adapters = {
   getCows: async () => {
@@ -30,10 +31,7 @@ export const adapters = {
     const { data } = parse<Day>(response, {
       header: true,
       dynamicTyping: true,
-      transform: (value) =>
-        typeof value === 'string' && value.includes(',')
-          ? value.replace(',', '.')
-          : value,
+      transform: parseCommaFloat,
     });
 
     return data;
@@ -47,10 +45,21 @@ export const adapters = {
     const { data } = parse<Milking>(response, {
       header: true,
       dynamicTyping: true,
-      transform: (value) =>
-        typeof value === 'string' && value.includes(',')
-          ? value.replace(',', '.')
-          : value,
+      transform: parseCommaFloat,
+    });
+
+    return data;
+  },
+
+  getResiduals: async () => {
+    const response = await apiRequest<string>(endpoints.residuals, {
+      responseType: 'text',
+    });
+
+    const { data } = parse<Residual>(response, {
+      header: true,
+      dynamicTyping: true,
+      transform: parseCommaFloat,
     });
 
     return data;

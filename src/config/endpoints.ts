@@ -4,4 +4,5 @@ export const endpoints = {
     one: '/data/:id_price.csv',
   },
   milking: '/data/scatter_df.csv',
+  residuals: '/data/residuals.csv',
 };
