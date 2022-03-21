@@ -4,7 +4,7 @@ import { endpoints } from 'config';
 import { apiRequest } from 'tools/services';
 import { parseCommaFloat } from 'tools/utils';
 
-import { Day, Milking, Residual } from './statistics.types';
+import { Day, Milking, BaseResidual } from './statistics.types';
 
 export const adapters = {
   getCows: async () => {
@@ -56,7 +56,7 @@ export const adapters = {
       responseType: 'text',
     });
 
-    const { data } = parse<Residual>(response, {
+    const { data } = parse<BaseResidual>(response, {
       header: true,
       dynamicTyping: true,
       transform: parseCommaFloat,

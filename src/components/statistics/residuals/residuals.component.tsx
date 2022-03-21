@@ -1,11 +1,12 @@
 import { VFC } from 'react';
 
-import { useCows } from 'domain/statistics/statistics.queries';
+import { Graph } from './atoms';
+import styles from './residuals.module.scss';
 
 export const Residuals: VFC = () => {
-  const { data: prices = [] } = useCows();
-
-  console.log(prices);
-
-  return <div>residuals</div>;
+  return (
+    <div className={styles.container}>
+      <Graph />
+    </div>
+  );
 };

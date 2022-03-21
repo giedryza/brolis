@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
 
-import { statisticsKeys } from 'domain/statistics/statistics.keys';
-
+import { statisticsKeys } from './statistics.keys';
 import { CowsFilters } from './statistics.types';
 import { adapters } from './statistics.adapters';
+import { residualConverter } from './statistics.converters';
 
 export const useCows = (filters: CowsFilters = {}) => {
   const query = useQuery(
@@ -29,7 +29,10 @@ export const useMilking = () => {
 export const useResiduals = () => {
   const query = useQuery(
     statisticsKeys.list('residuals'),
-    adapters.getResiduals
+    adapters.getResiduals,
+    {
+      select: (data) => data.map(residualConverter),
+    }
   );
 
   return query;
