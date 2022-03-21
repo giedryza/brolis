@@ -4,22 +4,23 @@
 
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   min-width: 8ch;
   min-height: 2.5em;
   padding: 0.25em 0.75em;
-  justify-content: center;
-  text-align: center;
+
+  color: var(--color-white);
+  font-weight: 500;
 
   font-size: 1.4rem;
-  font-weight: 500;
   line-height: 1.2;
+  text-align: center;
   text-decoration: none;
   word-break: normal;
 
   background-color: var(--color-text);
   border: 0;
   cursor: pointer;
-  color: var(--color-white);
 
   transition-duration: 150ms;
   transition-property: color, background-color, box-shadow;
