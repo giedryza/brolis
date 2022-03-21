@@ -17,7 +17,9 @@ export const apiRequest = async <Data = any>(
   endpoint: string,
   { method = 'GET', responseType = 'json' }: Options = {}
 ): Promise<Data> => {
-  const response = await fetch(endpoint, {
+  const { href } = new URL(endpoint, process.env.NEXT_PUBLIC_HOST_CLIENT);
+
+  const response = await fetch(href, {
     method,
   });
 

@@ -25,13 +25,11 @@ export const Graph: VFC = () => {
   const { data: milkings = [] } = useMilking();
 
   const getMilkingDataKeyValue = (key: keyof Milking) => (data: Day) => {
-    const index = milkings.findIndex(
+    const milking = milkings.find(
       ({ Milking_days }) => Milking_days === data.days
     );
 
-    if (index && milkings[index]) {
-      return milkings[index][key];
-    }
+    return milking?.[key];
   };
 
   if (!days.length || !milkings.length) return null;
