@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 
 import { AppHead } from 'ui';
 import { MainLayout } from 'layouts';
-
 import { Residuals } from 'components/statistics';
 
 const ResidualsPage: NextPage = () => {
