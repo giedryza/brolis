@@ -1,4 +1,8 @@
-import { Residual } from 'domain/statistics/statistics.types';
+import {
+  Milking,
+  MilkingsFilters,
+  Residual,
+} from 'domain/statistics/statistics.types';
 
 export const residualConverter = (residual: Residual) => ({
   ...residual,
@@ -15,3 +19,19 @@ export const residualConverter = (residual: Residual) => ({
     milk_residuals_neg: residual.milk_residuals,
   }),
 });
+
+export const milkingsFilter = (
+  milkings: Milking[],
+  { dayFrom, dayTo }: MilkingsFilters
+) => {
+  let filtered = milkings;
+
+  if (dayFrom) {
+    filtered = filtered.filter((milking) => milking.Milking_days >= dayFrom);
+  }
+  if (dayTo) {
+    filtered = filtered.filter((milking) => milking.Milking_days < dayTo);
+  }
+
+  return filtered;
+};

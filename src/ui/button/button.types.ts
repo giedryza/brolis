@@ -7,12 +7,12 @@ interface BaseProps {
   label: string;
 }
 
-interface ButtonProps extends BaseProps {
+export interface ButtonProps extends BaseProps {
   url?: undefined;
   attributes?: Omit<ButtonAttributes, 'className'>;
 }
 
-interface LinkProps extends BaseProps {
+export interface LinkProps extends BaseProps {
   url: NextLinkProps | string;
   attributes?: Omit<LinkAttributes, 'className' | 'href'>;
 }

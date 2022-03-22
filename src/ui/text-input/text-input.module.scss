@@ -1,0 +1,50 @@
+.input {
+  font-size: 1.6rem;
+
+  > *:not(:last-child) {
+    margin-bottom: 0.25em;
+  }
+
+  > input {
+    display: block;
+    width: 100%;
+    padding: 0.25em 0.5em;
+    font-weight: 500;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-grey-60);
+    border-radius: 0.6rem;
+    transition: 150ms box-shadow;
+    line-height: 1;
+    height: 2.25em;
+
+    &[readonly] {
+      border-style: dotted;
+      cursor: default;
+      color: var(--color-grey-40);
+    }
+
+    &[disabled] {
+      border-color: var(--color-grey-75);
+      background-color: var(--color-grey-95);
+      cursor: not-allowed;
+      color: var(--color-grey-40);
+    }
+
+    &:focus {
+      outline: 2px solid transparent;
+      border-color: var(--color-grey-05);
+      box-shadow: 0 0 3px 2px hsla(257, 100%, 85%, 0.75);
+    }
+
+    &:hover {
+      border-color: var(--color-grey-40);
+    }
+  }
+
+  > label {
+    display: block;
+    font-size: 0.8em;
+    color: var(--color-text);
+    font-weight: 600;
+  }
+}

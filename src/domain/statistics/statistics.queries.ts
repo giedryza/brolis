@@ -1,15 +1,13 @@
 import { useQuery } from 'react-query';
 
 import { statisticsKeys } from './statistics.keys';
-import { CowsFilters } from './statistics.types';
+import { MilkingsFilters } from './statistics.types';
 import { adapters } from './statistics.adapters';
-import { residualConverter } from './statistics.converters';
+import { milkingsFilter, residualConverter } from './statistics.converters';
+import { useStatisticsContext } from './statistics.context';
 
-export const useCows = (filters: CowsFilters = {}) => {
-  const query = useQuery(
-    statisticsKeys.list('cows', filters),
-    adapters.getCows
-  );
+export const useCows = () => {
+  const query = useQuery(statisticsKeys.list('cows'), adapters.getCows);
 
   return query;
 };
@@ -20,8 +18,27 @@ export const useCow = (id: number) => {
   return query;
 };
 
-export const useMilking = () => {
-  const query = useQuery(statisticsKeys.list('milking'), adapters.getMilking);
+export const useMilking = (filters: MilkingsFilters = {}) => {
+  const query = useQuery(
+    statisticsKeys.list('milking', filters),
+    adapters.getMilking,
+    {
+      select: (milkings) => milkingsFilter(milkings, filters),
+    }
+  );
+
+  return query;
+};
+
+export const useActiveMilking = () => {
+  const {
+    state: { filters },
+  } = useStatisticsContext();
+
+  const query = useMilking({
+    dayFrom: filters.dayFrom,
+    dayTo: filters.dayTo,
+  });
 
   return query;
 };

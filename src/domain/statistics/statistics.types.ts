@@ -40,4 +40,7 @@ export interface Ssc {
   SSC_lab: number;
 }
 
-export interface CowsFilters {}
+export interface MilkingsFilters {
+  dayFrom?: number;
+  dayTo?: number;
+}

@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import { queryClientConfig } from 'tools/services';
+import { StatisticsProvider } from 'domain/statistics/statistics.context';
 
 import 'styles/index.scss';
 
@@ -12,7 +13,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <Component {...pageProps} />
+        <StatisticsProvider>
+          <Component {...pageProps} />
+        </StatisticsProvider>
       </Hydrate>
     </QueryClientProvider>
   );
