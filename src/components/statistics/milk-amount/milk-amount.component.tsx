@@ -6,8 +6,8 @@ import styles from './milk-amount.module.scss';
 export const MilkAmount: VFC = () => {
   return (
     <div className={styles.container}>
-      <Filters />
       <Graph />
+      <Filters />
     </div>
   );
 };
