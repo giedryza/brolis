@@ -1,8 +1,7 @@
 import type { NextPage } from 'next';
 
 import { MainLayout } from 'layouts';
-import { AppHead } from 'ui';
-import { Banner } from 'components/banner';
+import { AppHead, Banner } from 'ui';
 
 const Custom404: NextPage = () => {
   return (
