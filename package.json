@@ -2,9 +2,6 @@
   "name": "brolis",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "16.13.2"
-  },
   "scripts": {
     "start": "next start",
     "start:dev": "next dev",
