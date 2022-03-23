@@ -6,5 +6,5 @@ export const endpoints = {
   milking: '/data/scatter_df.csv',
   farmMilking: '/data/data_farm_daily_df.csv',
   residuals: '/data/residuals.csv',
-  ssc: '/data/ssc.csv',
+  ssc: '/data/ssc-data.csv',
 };
