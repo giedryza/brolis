@@ -6,8 +6,8 @@ import styles from './analytes.module.scss';
 export const Analytes: VFC = () => {
   return (
     <div className={styles.container}>
-      <Filters />
       <Graph />
+      <Filters />
     </div>
   );
 };
