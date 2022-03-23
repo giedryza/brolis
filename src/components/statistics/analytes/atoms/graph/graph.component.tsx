@@ -12,14 +12,17 @@ import {
   ComposedChart,
 } from 'recharts';
 
-import { useCow, useActiveMilking } from 'domain/statistics/statistics.queries';
+import {
+  useActiveCow,
+  useActiveMilking,
+} from 'domain/statistics/statistics.queries';
 import { Day, Milking } from 'domain/statistics/statistics.types';
 
 import { COW, X_TICKS_INTERVAL } from './graph.constants';
 import styles from './graph.module.scss';
 
 export const Graph: VFC = () => {
-  const { data: days = [], isLoading } = useCow(COW);
+  const { data: days = [], isLoading } = useActiveCow(COW);
   const { data: milkings = [] } = useActiveMilking();
 
   const getMilkingDataKeyValue = (key: keyof Milking) => (data: Day) => {
