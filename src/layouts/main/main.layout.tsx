@@ -9,7 +9,9 @@ export const MainLayout: FC = ({ children }) => {
   return (
     <div className={styles.container}>
       <Header />
+
       <main>{children}</main>
+
       <Footer />
     </div>
   );
